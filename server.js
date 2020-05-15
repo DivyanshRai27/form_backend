@@ -1,22 +1,22 @@
 const express = require('express');
+const bodyParser = require('body-parser')
+const exphbs = require('express-handlebars')
+const nodemailer = require('nodemailer')
 
 //chunk 1
 const app = express();
 const log = console.log;
 const path = require('path')
 
+//view engine setup
+app.engine('handlebars', exphbs())
+app.set('view engine', 'handlebars')
+
+//body-parser-middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 const PORT = 8080
-
-//chunk2
-//Data parsing
-app.use(express.urlencoded({
-    extended: false
-}))
-app.use(express.json())
-
-app.post('/email', (req, res) => {
-    //TODO
-})
 
 app.get('/', (req,res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
